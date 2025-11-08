@@ -1,2 +1,58 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<% # Cards and styling was taken and modified from bootstrap %>
+<div class="text-center py-5">
+  <h1 class="home-h1">Welcome to Assignment Tracker 🎓</h1>
+  <p class="lead mb-4">Assignment Tracker helps you stay organized and never miss a deadline</p>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow home-card">
+        <div class="card-body">
+          <h5 class="card-title">What Assignment Tracker does:</h5>
+          <ul class="list-unstyled">
+            <li>✅ Track assignments</li>
+            <li>✅ User authentication (sign up, login, logout)</li>
+            <li>✅ Set reminders for deadlines</li>
+            <li>✅ View progress with visual charts</li>
+          </ul>
+          
+          <% if user_signed_in? %>
+            <p class="text-success">Welcome back, <%= current_user.email %>!</p>
+            <%= link_to "View Assignments", "#", class: "btn btn-primary btn-lg" %>
+          <% else %>
+            <p class="text-muted">Get started by creating an account!</p>
+            <%= link_to "Sign Up Now", new_user_registration_path, class: "btn btn-success btn-lg me-2" %>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-outline-primary btn-lg" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-4">
+    <div class="card home-card">
+      <div class="card-body">
+        <h5 class="card-title">📚 Assignments</h5>
+        <p class="card-text">Keep track of all your assignments in one place.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card home-card">
+      <div class="card-body">
+        <h5 class="card-title">🔔 Reminders</h5>
+        <p class="card-text">Never miss a deadline again with helpful notifications.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card home-card">
+      <div class="card-body">
+        <h5 class="card-title">📊 Progress</h5>
+        <p class="card-text">See how you're doing with visual progress tracking.</p>
+      </div>
+    </div>
+  </div>
+</div>

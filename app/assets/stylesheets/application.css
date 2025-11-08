@@ -8,3 +8,61 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* Custom styling */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: whitesmoke !important;
+}
+
+.home-h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+body {
+  background-color: F4F3F2;
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+}
+
+.navrbar-logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.footer-custom {
+  background-color: black;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.home-card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 770px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+}
