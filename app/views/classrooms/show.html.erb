@@ -1,0 +1,31 @@
+<p style="color: green"><%= notice %></p>
+
+<h2>Classroom: <%= @classroom.name %></h2>
+
+<div>
+  <%= link_to "Edit this classroom", edit_classroom_path(@classroom), class: "btn btn-primary" %>
+  <%= link_to "Back to classrooms", classrooms_path, class: "btn btn-secondary" %>
+  <%= button_to "Delete this classroom", @classroom, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+</div>
+
+<hr>
+
+<h3>Assignments</h3>
+
+<%= link_to "Add Assignment", new_assignment_path(classroom_id: @classroom.id), class: "btn btn-success mb-2" %>
+
+<ul class="list-group">
+  <% @assignments.each do |assignment| %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <strong><%= assignment.title %></strong> (Due: <%= assignment.due_date %>)
+        <br>
+        Status: <%= assignment.status %>, Progress: <%= assignment.progress %>%
+      </div>
+      <div>
+        <%= link_to "Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
+        <%= button_to "Delete", assignment, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
