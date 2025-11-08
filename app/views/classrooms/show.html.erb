@@ -1,31 +1,69 @@
-<p style="color: green"><%= notice %></p>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <p style="color: green"><%= notice %></p>
 
-<h2>Classroom: <%= @classroom.name %></h2>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title"><%= @classroom.name %></h1>
+        <div>
+          <%= link_to "Edit", edit_classroom_path(@classroom), class: "btn btn-outline-primary" %>
+          <%= button_to "Delete", @classroom, method: :delete, 
+              data: { confirm: "Are you sure?" }, 
+              class: "btn btn-outline-danger" %>
+        </div>
+      </div>
 
-<div>
-  <%= link_to "Edit this classroom", edit_classroom_path(@classroom), class: "btn btn-primary" %>
-  <%= link_to "Back to classrooms", classrooms_path, class: "btn btn-secondary" %>
-  <%= button_to "Delete this classroom", @classroom, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      <div class="mb-4">
+        <%= link_to "← Back to My Classrooms", classrooms_path, class: "btn btn-secondary" %>
+      </div>
+
+      <div class="card home-card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Classroom Details</h5>
+          <p class="card-text">
+            <strong>Name:</strong> <%= @classroom.name %><br>
+            <strong>Created:</strong> <%= @classroom.created_at.strftime("%B %d, %Y") %>
+          </p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Assignments</h3>
+        <%= link_to "Add New Assignment", new_assignment_path(classroom_id: @classroom.id), class: "btn btn-success" %>
+      </div>
+
+      <% if @assignments.empty? %>
+        <div class="text-center py-4">
+          <h5 class="text-muted">No assignments yet!</h5>
+          <p class="text-muted">Add your first assignment to get started.</p>
+        </div>
+      <% else %>
+        <div class="row">
+          <% @assignments.each do |assignment| %>
+            <div class="col-md-6 mb-3">
+              <div class="card home-card">
+                <div class="card-body">
+                  <h6 class="card-title"><%= assignment.title %></h6>
+                  <p class="card-text">
+                    <strong>Due:</strong> <%= assignment.due_date.strftime("%B %d, %Y") %><br>
+                    <strong>Status:</strong> 
+                    <span class="badge <%= assignment.status == 'Completed' ? 'bg-success' : assignment.status == 'In progress' ? 'bg-warning' : 'bg-secondary' %>">
+                      <%= assignment.status %>
+                    </span><br>
+                    <strong>Progress:</strong> <%= assignment.progress %>%
+                  </p>
+                  <div class="d-flex gap-2">
+                    <%= link_to "Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
+                    <%= button_to "Delete", assignment, method: :delete, 
+                        data: { confirm: "Are you sure?" }, 
+                        class: "btn btn-sm btn-outline-danger" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<hr>
-
-<h3>Assignments</h3>
-
-<%= link_to "Add Assignment", new_assignment_path(classroom_id: @classroom.id), class: "btn btn-success mb-2" %>
-
-<ul class="list-group">
-  <% @assignments.each do |assignment| %>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <div>
-        <strong><%= assignment.title %></strong> (Due: <%= assignment.due_date %>)
-        <br>
-        Status: <%= assignment.status %>, Progress: <%= assignment.progress %>%
-      </div>
-      <div>
-        <%= link_to "Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
-        <%= button_to "Delete", assignment, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
-      </div>
-    </li>
-  <% end %>
-</ul>

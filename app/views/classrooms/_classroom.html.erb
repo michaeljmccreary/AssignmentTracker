@@ -1,6 +1,17 @@
-<div id="<%= dom_id classroom %>">
-  <p>
-    <strong>Name:</strong>
-    <%= classroom.name %>
-  </p>
+<div id="<%= dom_id classroom %>" class="card home-card mb-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= classroom.name %></h5>
+    <p class="card-text">
+      <small class="text-muted">
+        Created <%= time_ago_in_words(classroom.created_at) %> ago
+      </small>
+    </p>
+    <div class="d-flex gap-2">
+      <%= link_to "View Details", classroom, class: "btn btn-primary btn-sm" %>
+      <%= link_to "Edit", edit_classroom_path(classroom), class: "btn btn-outline-secondary btn-sm" %>
+      <%= button_to "Delete", classroom, method: :delete, 
+          data: { confirm: "Are you sure?" }, 
+          class: "btn btn-outline-danger btn-sm" %>
+    </div>
+  </div>
 </div>

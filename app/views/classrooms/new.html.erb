@@ -1,11 +1,15 @@
-<% content_for :title, "New classroom" %>
-
-<h1>New classroom</h1>
-
-<%= render "form", classroom: @classroom %>
-
-<br>
-
-<div>
-  <%= link_to "Back to classrooms", classrooms_path %>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <% content_for :title, "New Classroom" %>
+      
+      <h1 class="page-title mb-4">Add New Classroom</h1>
+      
+      <%= render "form", classroom: @classroom %>
+      
+      <div class="mt-3">
+        <%= link_to "← Back to classrooms", classrooms_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>

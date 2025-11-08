@@ -1,12 +1,15 @@
-<% content_for :title, "Editing assignment" %>
-
-<h1>Editing assignment</h1>
-
-<%= render "form", assignment: @assignment %>
-
-<br>
-
-<div>
-  <%= link_to "Show this assignment", @assignment %> |
-  <%= link_to "Back to assignments", assignments_path %>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <% content_for :title, "Edit Assignment" %>
+      
+      <h1 class="page-title mb-4">Edit Assignment</h1>
+      
+      <%= render "form", assignment: @assignment %>
+      
+      <div class="mt-3">
+        <%= link_to "← Back to classroom", classroom_path(@assignment.classroom), class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
 </div>

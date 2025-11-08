@@ -1,16 +1,40 @@
-<p style="color: green"><%= notice %></p>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Classrooms" %>
+      <% content_for :title, "My Classrooms" %>
 
-<h1>Classes</h1>
+      <h1 class="page-title mb-4">My Classrooms</h1>
 
-<div id="classrooms">
-  <% @classrooms.each do |classroom| %>
-    <%= render classroom %>
-    <p>
-      <%= link_to "Show this classroom", classroom %>
-    </p>
-  <% end %>
+      <div class="row">
+        <% @classrooms.each do |classroom| %>
+          <div class="col-md-6 mb-4">
+            <div class="card home-card">
+              <div class="card-body">
+                <h5 class="card-title"><%= classroom.name %></h5>
+                <p class="card-text">
+                  <small class="text-muted">
+                    Created <%= time_ago_in_words(classroom.created_at) %> ago
+                  </small>
+                </p>
+                <%= link_to "View Classroom", classroom, class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @classrooms.empty? %>
+        <div class="text-center py-5">
+          <h3 class="text-muted">No classrooms yet!</h3>
+          <p class="text-muted">Add your first classroom to get started.</p>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-4">
+        <%= link_to "Add New Classroom", new_classroom_path, class: "btn btn-success btn-lg" %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New classroom", new_classroom_path %>
