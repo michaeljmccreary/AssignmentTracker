@@ -1,16 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Assignments" %>
+      <% content_for :title, "Assignments" %>
 
-<h1>Assignments</h1>
+      <h1>Assignments</h1>
 
-<div id="assignments">
-  <% @assignments.each do |assignment| %>
-    <%= render assignment %>
-    <p>
-      <%= link_to "Show this assignment", assignment %>
-    </p>
-  <% end %>
+      <div id="assignments">
+        <% @assignments.each do |assignment| %>
+          <%= render assignment %>
+          <p>
+            <%= link_to "Show this assignment", assignment %>
+          </p>
+        <% end %>
+      </div>
+
+      <%= link_to "Back to Classrooms", classrooms_path %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New assignment", new_assignment_path %>
