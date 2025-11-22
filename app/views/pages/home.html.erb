@@ -3,30 +3,64 @@
   <p class="lead mb-4">Assignment Tracker helps you stay organized and never miss a deadline</p>
   
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card shadow home-card">
         <div class="card-body">
           <% if user_signed_in? %>
-            <h3 class="mb-3">Your Assignments</h3>
+            <h3 class="mb-4">Your Assignment Calendar</h3>
 
-            <% if @assignments.any? %>
-              <ul class="list-group">
-                <% @assignments.each do |assignment| %>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                      <strong><%= assignment.title %></strong> — <%= assignment.classroom.name %><br>
-                      Due: <%= assignment.due_date %>, Status: <%= assignment.status %>
-                    </div>
-                    <div>
-                      <%= link_to "Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
-                      <%= button_to "Delete", assignment, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
-            <% else %>
-              <p>You haven't added any assignments yet.</p>
-              <%= link_to "Add your first assignment", classrooms_path, class: "btn btn-success" %>
+            <div id="calendar"></div>
+
+            <script>
+              function initializeCalendar() {
+                var calendarEl = document.getElementById('calendar');
+                
+                if (!calendarEl) return;
+                
+                var events = [
+                  <% @assignments.each do |assignment| %>
+                    {
+                      title: '<%= j assignment.title %>',
+                      start: '<%= assignment.due_date.strftime('%Y-%m-%d') %>',
+                      url: '<%= assignment_path(assignment) %>',
+                      backgroundColor: '#faebd7',
+                      borderColor: '#d4a574',
+                      textColor: '#000000'
+                    },
+                  <% end %>
+                ];
+
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                  initialView: 'dayGridMonth',
+                  headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''
+                  },
+                  events: events,
+                  eventClick: function(info) {
+                    info.jsEvent.preventDefault();
+                    if (info.event.url) {
+                      window.location.href = info.event.url;
+                    }
+                  },
+                  height: 'auto',
+                  contentHeight: 600
+                });
+                
+                calendar.render();
+              }
+
+              // Initialize on both DOMContentLoaded and turbo:load
+              document.addEventListener('DOMContentLoaded', initializeCalendar);
+              document.addEventListener('turbo:load', initializeCalendar);
+            </script>
+
+            <% if @assignments.empty? %>
+              <div class="text-center py-4 mt-3">
+                <p class="text-muted">You haven't added any assignments yet.</p>
+                <%= link_to "Add your first assignment", classrooms_path, class: "btn btn-success" %>
+              </div>
             <% end %>
           <% else %>
             <h5 class="card-title">What Assignment Tracker does:</h5>
