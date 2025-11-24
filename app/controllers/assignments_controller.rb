@@ -4,6 +4,24 @@ class AssignmentsController < ApplicationController
   # GET /assignments or /assignments.json
   def index
     @assignments = Assignment.all
+    @classrooms = Classroom.all
+
+    # Filter by status
+    if params[:status].present? && params[:status] != "all"
+      @assignments = @assignments.where(status: params[:status])
+    end
+
+    # Filter by classroom
+    if params[:classroom_id].present? && params[:classroom_id] != "all"
+      @assignments = @assignments.where(classroom_id: params[:classroom_id])
+    end
+
+    # Sort by due date
+    if params[:sort_by] == "due_date"
+      @assignments = @assignments.order(due_date: :asc)
+    else
+      @assignments = @assignments.order(created_at: :desc)
+    end
   end
 
   # GET /assignments/1 or /assignments/1.json
@@ -67,6 +85,6 @@ class AssignmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def assignment_params
-      params.expect(assignment: [ :title, :due_date, :status, :progress, :classroom_id ])
+      params.expect(assignment: [ :title, :due_date, :status, :progress, :classroom_id, :description ])
     end
 end

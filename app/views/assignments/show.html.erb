@@ -3,13 +3,83 @@
     <div class="form-card">
       <p style="color: green"><%= notice %></p>
 
-      <%= render @assignment %>
+      <% content_for :title, @assignment.title %>
 
-      <div>
-        <%= link_to "Edit this assignment", edit_assignment_path(@assignment) %> |
-        <%= link_to "Back to assignments", assignments_path %>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title mb-0">📝 <%= @assignment.title %></h1>
+        <span class="badge <%= case @assignment.status
+          when 'Completed' then 'bg-success'
+          when 'In progress' then 'bg-warning'
+          else 'bg-secondary'
+        end %> fs-6"><%= @assignment.status %></span>
+      </div>
 
-        <%= button_to "Delete this assignment", @assignment, method: :delete %>
+      <!-- Assignment Details Card -->
+      <div class="card home-card mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Assignment Information</h5>
+          
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <p class="mb-2"><strong>📚 Classroom:</strong> <%= @assignment.classroom.name %></p>
+              <p class="mb-2"><strong>📅 Due Date:</strong> <%= @assignment.due_date.strftime("%B %d, %Y") %></p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-2"><strong>⏰ Time Remaining:</strong> 
+                <% days_until = (@assignment.due_date - Date.today).to_i %>
+                <% if days_until < 0 %>
+                  <span class="text-danger">Overdue by <%= days_until.abs %> days</span>
+                <% elsif days_until == 0 %>
+                  <span class="text-warning">Due today!</span>
+                <% elsif days_until == 1 %>
+                  <span class="text-warning">Due tomorrow</span>
+                <% else %>
+                  <span class="text-success"><%= days_until %> days</span>
+                <% end %>
+              </p>
+              <p class="mb-2"><strong>📊 Status:</strong> <%= @assignment.status %></p>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <strong>Progress:</strong>
+            <div class="progress mt-2" style="height: 25px;">
+              <div class="progress-bar <%= 
+                if @assignment.progress >= 75
+                  'bg-success'
+                elsif @assignment.progress >= 50
+                  'bg-info'
+                elsif @assignment.progress >= 25
+                  'bg-warning'
+                else
+                  'bg-danger'
+                end
+              %>" role="progressbar" style="width: <%= @assignment.progress %>%;" aria-valuenow="<%= @assignment.progress %>" aria-valuemin="0" aria-valuemax="100">
+                <%= @assignment.progress %>%
+              </div>
+            </div>
+          </div>
+
+          <% if @assignment.description.present? %>
+            <div class="mt-3">
+              <strong>📄 Description:</strong>
+              <div class="mt-2 p-3" style="background-color: #f8f9fa; border-radius: 5px; white-space: pre-wrap;"><%= @assignment.description %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Quick Actions Card -->
+      <div class="card home-card mb-3">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Quick Actions</h5>
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to "✏️ Edit Assignment", edit_assignment_path(@assignment), class: "btn btn-primary" %>
+            <%= link_to "🔙 Back to Assignments", assignments_path, class: "btn btn-secondary" %>
+            <%= link_to "🏫 View Classroom", classroom_path(@assignment.classroom), class: "btn btn-info" %>
+            <%= button_to "🗑️ Delete Assignment", @assignment, method: :delete, data: { confirm: "Are you sure you want to delete this assignment?" }, class: "btn btn-danger" %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

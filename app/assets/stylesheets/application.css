@@ -160,8 +160,80 @@ body {
   align-items: flex-start;
 }
 
+.assignment-card {
+  transition: all 0.3s ease;
+}
+
+.assignment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.progress {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.6s ease;
+}
+
+.filter-section {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.status-section {
+  margin-bottom: 2rem;
+}
+
+.status-section h4 {
+  color: #212529;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.card-title {
+  color: #212529;
+  font-weight: bold;
+}
+
+.card-text small {
+  line-height: 1.6;
+}
+
+.btn-group-spacing {
+  gap: 0.5rem;
+}
+
 @media (max-width: 770px) {
   .navbar-brand {
     font-size: 1.2rem;
+  }
+
+  .form-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .d-flex.gap-2 {
+    flex-direction: column;
+  }
+
+  .d-flex.gap-2 .btn {
+    width: 100%;
   }
 }

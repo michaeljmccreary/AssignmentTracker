@@ -25,6 +25,11 @@
           <output for="progressRange" class="form-text"><%= assignment.progress || 0 %>%</output>
         </div>
 
+        <div class="mb-3">
+          <%= form.label :description, class: "form-label" %>
+          <%= form.text_area :description, class: "form-control", rows: 4, placeholder: "Add notes or description for this assignment (optional)" %>
+        </div>
+
         <div class="d-flex gap-2">
           <%= form.submit class: "btn btn-primary" %>
           <%= link_to "Cancel", classroom_path(assignment.classroom), class: "btn btn-secondary" %>
