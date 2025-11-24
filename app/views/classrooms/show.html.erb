@@ -7,14 +7,14 @@
         <h1 class="page-title"><%= @classroom.name %></h1>
         <div>
           <%= link_to "Edit", edit_classroom_path(@classroom), class: "btn btn-outline-primary" %>
-          <%= button_to "Delete", @classroom, method: :delete, 
+          <%= button_to "🗑️ Delete", @classroom, method: :delete, 
               data: { confirm: "Are you sure?" }, 
               class: "btn btn-outline-danger" %>
         </div>
       </div>
 
       <div class="mb-4">
-        <%= link_to "← Back to My Classrooms", classrooms_path, class: "btn btn-secondary" %>
+        <%= link_to "🔙 Back to My Classrooms", classrooms_path, class: "btn btn-secondary" %>
       </div>
 
       <div class="card home-card mb-4">
@@ -53,7 +53,7 @@
                     <strong>Progress:</strong> <%= assignment.progress %>%
                   </p>
                   <div class="d-flex gap-2">
-                    <%= link_to "Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
+                    <%= link_to "✏️ Edit", edit_assignment_path(assignment), class: "btn btn-sm btn-outline-primary" %>
                     <%= button_to "Delete", assignment, method: :delete, 
                         data: { confirm: "Are you sure?" }, 
                         class: "btn btn-sm btn-outline-danger" %>
