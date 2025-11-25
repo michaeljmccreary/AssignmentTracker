@@ -74,10 +74,10 @@
         <div class="card-body">
           <h5 class="card-title mb-3">Quick Actions</h5>
           <div class="d-flex gap-2 flex-wrap">
-            <%= link_to "✏️ Edit Assignment", edit_assignment_path(@assignment), class: "btn btn-primary" %>
-            <%= link_to "🔙 Back to Assignments", assignments_path, class: "btn btn-secondary" %>
-            <%= link_to "🏫 View Classroom", classroom_path(@assignment.classroom), class: "btn btn-info" %>
-            <%= button_to "🗑️ Delete Assignment", @assignment, method: :delete, data: { confirm: "Are you sure you want to delete this assignment?" }, class: "btn btn-danger" %>
+            <%= link_to "Edit Assignment", edit_assignment_path(@assignment), class: "btn btn-primary" %>
+            <%= link_to "Back to Assignments", assignments_path, class: "btn btn-secondary" %>
+            <%= link_to "View Classroom", classroom_path(@assignment.classroom), class: "btn btn-info" %>
+            <%= button_to "Delete Assignment", @assignment, method: :delete, data: { confirm: "Are you sure you want to delete this assignment?" }, class: "btn btn-danger" %>
           </div>
         </div>
       </div>
