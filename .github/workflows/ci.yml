@@ -47,9 +47,7 @@ jobs:
 
       - name: Setup Database
         run: |
-          bundle exec bin/rails db:create
-          bundle exec bin/rails db:schema:load
-          bundle exec bin/rails db:migrate
+          bundle exec rails db:prepare
 
       - name: Run tests
         run: |
