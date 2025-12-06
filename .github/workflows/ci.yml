@@ -51,8 +51,8 @@ jobs:
 
       - name: Run tests
         run: |
-          bin/rails test
-          bin/rails test:system
+          bundle exec rails test
+          bundle exec rails test:system
 
       - name: Run security checks
         run: |
