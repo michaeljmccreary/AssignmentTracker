@@ -20,11 +20,11 @@ class ClassroomsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create classroom" do
     assert_difference("Classroom.count") do
-      post classrooms_url, params: { 
-        classroom: { 
-          name: "New Test Classroom", 
-          user_id: @user.id 
-        } 
+      post classrooms_url, params: {
+        classroom: {
+          name: "New Test Classroom",
+          user_id: @user.id
+        }
       }
     end
 
@@ -43,14 +43,14 @@ class ClassroomsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update classroom" do
-    patch classroom_url(@classroom), params: { 
-      classroom: { 
-        name: "Updated Classroom Name", 
-        user_id: @classroom.user_id 
-      } 
+    patch classroom_url(@classroom), params: {
+      classroom: {
+        name: "Updated Classroom Name",
+        user_id: @classroom.user_id
+      }
     }
     assert_redirected_to classroom_url(@classroom)
-    
+
     @classroom.reload
     assert_equal "Updated Classroom Name", @classroom.name
   end

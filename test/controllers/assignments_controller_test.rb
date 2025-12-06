@@ -21,15 +21,15 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create assignment" do
     assert_difference("Assignment.count") do
-      post assignments_url, params: { 
-        assignment: { 
-          classroom_id: @classroom.id, 
-          due_date: @assignment.due_date, 
-          progress: @assignment.progress, 
-          status: @assignment.status, 
+      post assignments_url, params: {
+        assignment: {
+          classroom_id: @classroom.id,
+          due_date: @assignment.due_date,
+          progress: @assignment.progress,
+          status: @assignment.status,
           title: "New Test Assignment",
           description: "Test description"
-        } 
+        }
       }
     end
 
@@ -48,18 +48,18 @@ class AssignmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update assignment" do
-    patch assignment_url(@assignment), params: { 
-      assignment: { 
-        classroom_id: @assignment.classroom_id, 
-        due_date: @assignment.due_date, 
-        progress: 75, 
-        status: "In progress", 
+    patch assignment_url(@assignment), params: {
+      assignment: {
+        classroom_id: @assignment.classroom_id,
+        due_date: @assignment.due_date,
+        progress: 75,
+        status: "In progress",
         title: "Updated Title",
         description: "Updated description"
-      } 
+      }
     }
     assert_redirected_to assignment_url(@assignment)
-    
+
     @assignment.reload
     assert_equal "Updated Title", @assignment.title
     assert_equal 75, @assignment.progress

@@ -21,7 +21,7 @@ class AssignmentsTest < ApplicationSystemTestCase
     fill_in "Due date", with: 30.days.from_now.to_date
     select "Not started", from: "Status"
     fill_in "Description", with: "This is a test description"
-    
+
     click_on "Create Assignment"
 
     assert_text "Assignment was successfully created"
@@ -35,7 +35,7 @@ class AssignmentsTest < ApplicationSystemTestCase
     fill_in "Progress", with: 80
     select "In progress", from: "Status"
     fill_in "Description", with: "Updated description"
-    
+
     click_on "Update Assignment"
 
     assert_text "Assignment was successfully updated"
@@ -44,7 +44,7 @@ class AssignmentsTest < ApplicationSystemTestCase
 
   test "should destroy Assignment" do
     visit assignment_url(@assignment)
-    
+
     accept_confirm do
       click_on "Delete Assignment", match: :first
     end
@@ -54,16 +54,16 @@ class AssignmentsTest < ApplicationSystemTestCase
 
   test "should filter assignments by status" do
     visit assignments_url
-    
+
     select "In progress", from: "Status"
     click_on "Apply Filters"
-    
+
     assert_selector "h1", text: "My Assignments"
   end
 
   test "should display assignment details" do
     visit assignment_url(@assignment)
-    
+
     assert_text @assignment.title
     assert_text @assignment.classroom.name
     assert_text "Assignment Information"
@@ -71,7 +71,7 @@ class AssignmentsTest < ApplicationSystemTestCase
 
   test "should show progress bar" do
     visit assignment_url(@assignment)
-    
+
     assert_selector ".progress-bar"
   end
 end

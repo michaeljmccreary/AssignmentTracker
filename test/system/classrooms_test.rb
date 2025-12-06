@@ -35,7 +35,7 @@ class ClassroomsTest < ApplicationSystemTestCase
 
   test "should destroy Classroom" do
     visit classroom_url(@classroom)
-    
+
     accept_confirm do
       click_on "Delete Classroom", match: :first
     end
@@ -45,7 +45,7 @@ class ClassroomsTest < ApplicationSystemTestCase
 
   test "should display classroom assignments" do
     visit classroom_url(@classroom)
-    
+
     assert_text @classroom.name
     # Check for assignments section
     assert_selector "h2", text: "Assignments"
@@ -54,7 +54,7 @@ class ClassroomsTest < ApplicationSystemTestCase
   test "should navigate to add assignment from classroom" do
     visit classroom_url(@classroom)
     click_on "Add New Assignment"
-    
+
     assert_selector "h1", text: "New Assignment"
   end
 end
