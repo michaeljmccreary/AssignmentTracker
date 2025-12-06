@@ -1,15 +1,89 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  due_date: 2025-11-08
-  status: MyString
-  progress: 1
+  title: Learning Portfolio
+  due_date: <%= 30.days.from_now.to_date %>
+  status: In progress
+  progress: 50
+  description: Write a report on the project findings
   classroom: one
 
 two:
-  title: MyString
-  due_date: 2025-11-08
-  status: MyString
-  progress: 1
+  title: CA 1
+  due_date: <%= 7.days.from_now.to_date %>
+  status: Not started
+  progress: 0
+  description: Complete exercises 1-20 from chapter 5
   classroom: two
+
+three:
+  title: TABA
+  due_date: <%= 14.days.from_now.to_date %>
+  status: In progress
+  progress: 75
+  description: Complete Moodle based assessment on operating systems
+  classroom: three
+
+four:
+  title: Completed Assignment
+  due_date: <%= 5.days.ago.to_date %>
+  status: Completed
+  progress: 100
+  description: This assignment has been completed
+  classroom: four
+
+five:
+  title: SQL Workbench
+  due_date: <%= 14.days.from_now.to_date %>
+  status: Not started
+  progress: 0
+  description: Learn the basics of SQL and database management
+  classroom: five
+
+six:
+  title: Cookie Shop in Java
+  due_date: <%= 28.days.from_now.to_date %>
+  status: In progress
+  progress: 25
+  description: Learn the basics Java
+  classroom: six
+
+seven:
+  title: My First website
+  due_date: <%= 15.days.ago.to_date %>
+  status: Completed
+  progress: 100
+  description: Build a simple website using HTML, CSS & JavaScript
+  classroom: eleven
+
+eight:
+  title: TABA
+  due_date: <%= 30.days.from_now.to_date %>
+  status: Completed
+  progress: 100
+  description: Study networking topologies and protocols
+  classroom: seven
+
+nine:
+  title: Playlist Manager
+  due_date: <%= 45.days.from_now.to_date %>
+  status: In progress
+  progress: 15
+  description: Build a playlist manager application in Java using data structures and algorithms from the course
+  classroom: eight
+
+ten:
+  title: AI Project
+  due_date: <%= 60.days.from_now.to_date %>
+  status: Not started
+  progress: 0
+  description: Build an AI based on open-source datasets
+  classroom: nine
+
+eleven:
+  title: Assignment Tracker
+  due_date: <%= 2.days.from_now.to_date %>
+  status: In progress
+  progress: 99
+  description: Build and deploy a website using Ruby on Rails to track assignments
+  classroom: ten

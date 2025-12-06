@@ -1,11 +1,11 @@
 <div class="form-wrapper">
   <div class="form-container">
     <div class="form-card">
-      <p style="color: green"><%= notice %></p>
+      <p class="notice-success"><%= notice %></p>
 
       <% content_for :title, "My Classrooms" %>
 
-      <h1 class="page-title mb-4">📚 My Classrooms</h1>
+      <h1 class="page-title mb-4">My Classrooms</h1>
 
       <div class="row">
         <% @classrooms.each do |classroom| %>

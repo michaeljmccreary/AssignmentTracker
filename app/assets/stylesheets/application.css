@@ -34,7 +34,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.navrbar-logo {
+.navbar-logo {
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -79,6 +79,24 @@ body {
 
 .form-wrapper {
   margin-top: 50px;
+}
+
+.notice-success {
+  color: green;
+}
+
+.progress-height-standard {
+  height: 20px;
+}
+
+.progress-height-large {
+  height: 25px;
+}
+
+.description-box {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  white-space: pre-wrap;
 }
 
 #calendar {

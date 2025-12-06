@@ -1,11 +1,11 @@
 <div class="form-wrapper">
   <div class="form-container">
     <div class="form-card">
-      <p style="color: green"><%= notice %></p>
+      <p class="notice-success"><%= notice %></p>
 
       <% content_for :title, "My Assignments" %>
 
-      <h1 class="page-title mb-4">📚 My Assignments</h1>
+      <h1 class="page-title mb-4">My Assignments</h1>
 
       <!-- Filter Section -->
       <div class="card home-card mb-4">
@@ -100,7 +100,7 @@
 
                         <div class="mb-3">
                           <small><strong>Progress:</strong></small>
-                          <div class="progress" style="height: 20px;">
+                          <div class="progress progress-height-standard">
                             <div class="progress-bar <%= 
                               if assignment.progress >= 75
                                 'bg-success'

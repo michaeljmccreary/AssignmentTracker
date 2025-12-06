@@ -55,7 +55,7 @@ class ClassroomsController < ApplicationController
     @classroom.destroy!
 
     respond_to do |format|
-      format.html { redirect_to classrooms_path, notice: "Classroom was successfully destroyed.", status: :see_other }
+      format.html { redirect_to classrooms_path, notice: "Classroom was successfully deleted.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -63,7 +63,7 @@ class ClassroomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
-      @classroom = Classroom.find(params.expect(:id))
+      @classroom = current_user.classrooms.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

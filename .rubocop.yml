@@ -6,3 +6,38 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
+
+# Allow longer lines in certain files
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - "test/**/*"
+    - "app/views/**/*"
+
+# Allow longer methods in tests
+Metrics/MethodLength:
+  Exclude:
+    - "test/**/*"
+
+# Allow longer blocks in tests and config files
+Metrics/BlockLength:
+  Exclude:
+    - "test/**/*"
+    - "config/**/*"
+
+# Allow ABC complexity in tests
+Metrics/AbcSize:
+  Exclude:
+    - "test/**/*"
+
+# Disable documentation requirement
+Style/Documentation:
+  Enabled: false
+
+# Allow class and module children
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Rails specific rules
+Rails/I18nLocaleTexts:
+  Enabled: false

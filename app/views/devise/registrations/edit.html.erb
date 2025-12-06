@@ -1,43 +1,144 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-card">
+      <h2 class="mb-4">Edit Profile</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true, id: "edit_profile_form" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="mb-3">
+          <%= f.label :avatar, "Profile Picture", class: "form-label" %>
+          <%= f.file_field :avatar, class: "form-control", accept: "image/*" %>
+          <% if resource.avatar.attached? && resource.persisted? && resource.avatar.blob.present? %>
+            <div class="mt-2">
+              <p class="mb-2">Current profile picture:</p>
+              <% begin %>
+                <%= image_tag url_for(resource.avatar), class: "navbar-logo", style: "width: 100px; height: 100px;" %>
+              <% rescue => e %>
+                <p class="text-muted">Profile picture preview unavailable</p>
+              <% end %>
+            </div>
+          <% elsif current_user.avatar.attached? %>
+            <div class="mt-2">
+              <p class="mb-2">Current profile picture:</p>
+              <%= image_tag url_for(current_user.avatar), class: "navbar-logo", style: "width: 100px; height: 100px;" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email, class: "form-label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="alert alert-info">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :password, class: "form-label" %>
+          <i class="text-muted">(leave blank if you don't want to change it)</i>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+          <% if @minimum_password_length %>
+            <small class="text-muted"><%= @minimum_password_length %> characters minimum</small>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password_confirmation, class: "form-label" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :current_password, class: "form-label" %>
+          <i class="text-muted">(we need your current password to confirm your changes)</i>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control", required: true %>
+          <% if resource.errors[:current_password].any? %>
+            <div class="text-danger mt-1">
+              <small>Current password is required to save changes</small>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="d-flex gap-2 mb-4">
+          <%= f.submit "Update Profile", class: "btn btn-primary" %>
+          <%= link_to "Back", :back, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+
+      <hr class="my-4">
+
+      <h3 class="text-danger">Danger Zone</h3>
+      <p class="text-muted">Once an account is deleted it cannot be recovered</p>
+      <%= button_to "Delete My Account", registration_path(resource_name), 
+          data: { confirm: "Are you sure? This action cannot be undone!", turbo_confirm: "Are you sure? This action cannot be undone!" }, 
+          method: :delete, 
+          class: "btn btn-danger" %>
+    </div>
   </div>
+</div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('edit_profile_form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      const currentPasswordField = document.getElementById('user_current_password');
+      const emailField = document.getElementById('user_email');
+      const passwordField = document.getElementById('user_password');
+      const avatarField = document.getElementById('user_avatar');
+      
+      // Check if any field has been changed
+      let hasChanges = false;
+      
+      if (emailField && emailField.defaultValue !== emailField.value) {
+        hasChanges = true;
+      }
+      
+      if (passwordField && passwordField.value.length > 0) {
+        hasChanges = true;
+      }
+      
+      if (avatarField && avatarField.files.length > 0) {
+        hasChanges = true;
+      }
+      
+      // If there are changes but no current password
+      if (hasChanges && currentPasswordField && currentPasswordField.value.trim() === '') {
+        e.preventDefault();
+        
+        // Remove any existing alert
+        const existingAlert = document.querySelector('.password-alert');
+        if (existingAlert) {
+          existingAlert.remove();
+        }
+        
+        // Add alert message
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-danger password-alert mt-3';
+        alert.innerHTML = '<strong>Password Required!</strong> Please enter your current password to save changes.';
+        
+        // Insert alert at the top of the form
+        const formCard = form.closest('.form-card');
+        if (formCard) {
+          formCard.insertBefore(alert, form);
+        }
+        
+        // Scroll to the alert
+        alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Focus on the current password field
+        currentPasswordField.focus();
+        currentPasswordField.classList.add('is-invalid');
+        
+        // Remove invalid class when user starts typing
+        currentPasswordField.addEventListener('input', function() {
+          if (this.value.trim() !== '') {
+            this.classList.remove('is-invalid');
+          }
+        });
+      }
+    });
+  }
+});
+</script>

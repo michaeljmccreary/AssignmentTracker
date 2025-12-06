@@ -1,9 +1,45 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: Computational Thinking
   user: one
 
 two:
-  name: MyString
+  name: Discrete Mathematics
   user: two
+
+three:
+  name: Operating Systems
+  user: one
+
+four:
+  name: Computer Architecture
+  user: two
+
+five:
+  name: Introduction to Databases
+  user: one
+
+six:
+  name: Introduction to Programming
+  user: two
+
+seven:
+  name: Networking
+  user: one
+
+eight:
+  name: Data structures and Algorithms
+  user: two
+
+nine:
+  name: INtro to A.I and ML
+  user: one
+
+ten:
+  name: Cloud application development
+  user: two
+
+eleven:
+  name: Web design
+  user: one

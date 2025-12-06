@@ -1,10 +1,12 @@
 class AssignmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_assignment, only: %i[ show edit update destroy ]
 
   # GET /assignments or /assignments.json
   def index
-    @assignments = Assignment.all
-    @classrooms = Classroom.all
+    # Only get assignments from the current user's classrooms
+    @classrooms = current_user.classrooms
+    @assignments = Assignment.joins(:classroom).where(classrooms: { user_id: current_user.id })
 
     # Filter by status
     if params[:status].present? && params[:status] != "all"
@@ -13,7 +15,10 @@ class AssignmentsController < ApplicationController
 
     # Filter by classroom
     if params[:classroom_id].present? && params[:classroom_id] != "all"
-      @assignments = @assignments.where(classroom_id: params[:classroom_id])
+      # Verify the classroom belongs to the current user
+      if @classrooms.exists?(id: params[:classroom_id])
+        @assignments = @assignments.where(classroom_id: params[:classroom_id])
+      end
     end
 
     # Sort by due date
@@ -30,7 +35,7 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/new
   def new
-    @classroom = Classroom.find(params[:classroom_id])
+    @classroom = current_user.classrooms.find(params[:classroom_id])
     @assignment = @classroom.assignments.build
   end
 
@@ -40,7 +45,7 @@ class AssignmentsController < ApplicationController
 
   # POST /assignments or /assignments.json
   def create
-    @classroom = Classroom.find(params[:assignment][:classroom_id])
+    @classroom = current_user.classrooms.find(params[:assignment][:classroom_id])
     @assignment = @classroom.assignments.build(assignment_params)
 
     respond_to do |format|
@@ -72,7 +77,7 @@ class AssignmentsController < ApplicationController
     @assignment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to assignments_path, notice: "Assignment was successfully destroyed.", status: :see_other }
+      format.html { redirect_to assignments_path, notice: "Assignment was successfully deleted.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -80,7 +85,8 @@ class AssignmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = Assignment.find(params.expect(:id))
+      # Only allow access to assignments that belong to the current user's classrooms
+      @assignment = Assignment.joins(:classroom).where(classrooms: { user_id: current_user.id }).find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

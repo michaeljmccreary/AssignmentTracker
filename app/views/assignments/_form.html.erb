@@ -42,10 +42,24 @@
 <script>
   const progressRange = document.getElementById('progressRange');
   const progressOutput = document.querySelector('output[for="progressRange"]');
+  const statusSelect = document.getElementById('assignment_status');
   
   if (progressRange && progressOutput) {
     progressRange.addEventListener('input', function() {
       progressOutput.textContent = this.value + '%';
+    });
+  }
+  
+  // Automatically set progress to 0% when "Not started" is selected
+  if (statusSelect && progressRange && progressOutput) {
+    statusSelect.addEventListener('change', function() {
+      if (this.value === 'Not started') {
+        progressRange.value = 0;
+        progressOutput.textContent = '0%';
+      } else if (this.value === 'Completed') {
+        progressRange.value = 100;
+        progressOutput.textContent = '100%';
+      }
     });
   }
 </script>

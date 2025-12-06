@@ -11,5 +11,8 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    
+    # Include Devise test helpers for controller tests
+    include Devise::Test::IntegrationHelpers
   end
 end
